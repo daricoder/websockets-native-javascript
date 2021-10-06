@@ -6,6 +6,7 @@ const WebSocket = require("ws")
 
 // https://es.javascript.info/websocket // aqui esta mas o menos lo que pasa por detras en las cabeceras como se establece la conexion o handshake 
 // https://github.com/websockets/ws // aqui esta la documentacion
+// tip: checkea las cabeceras en las herramientas del navegador el tab : ws veras el request mandado y el response
 const wss = new WebSocket.WebSocketServer({
     port:3000
 })
