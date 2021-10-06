@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>HELLO SOY UN CLIENTE</h1>
+    <form name="myform">
+        <label for="">nombre</label>
+        <input type="text" name="user_input">
+        <label for="">mensaje</label>
+        <input type="text" name="message_input">
+        <button type="submit">enviar</button>
+    </form>
+    <div id="messages">
+
+    </div>
+    <script>
+        const ws = new WebSocket("ws://localhost:3000")
+        ws.addEventListener("open",() => {
+                console.log("ya me conecte")
+        })
+
+        ws.addEventListener("message",(event) => {
+            let message = JSON.parse(event.data);
+            messages.innerHTML= `<div><strong>${message.usuario}: </strong>${message.mensaje}</div>` + messages.innerHTML
+    
+        })
+        window.onload = () => {  
+            document.forms.myform.addEventListener("submit", handleSubmit)
+        }
+
+        const handleSubmit = function(e){
+            e.preventDefault()
+            const message = {
+                usuario:this.user_input.value,
+                mensaje:this.message_input.value
+            }
+            ws.send(JSON.stringify(message))
+        }
+
+
+        
+    </script>
+</body>
+</html>
